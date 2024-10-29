@@ -13,7 +13,7 @@ class htmlManager
     int loadFile(std::string path);
     public:
     int init(std::string tar);
-    int getFlie(std::string url,char * buffer);
+    std::string getFlie(std::string url);
 };
 
 extern htmlManager html_manager;

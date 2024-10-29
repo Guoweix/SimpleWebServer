@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <Debug.hpp>
 #include <HTML_Manager.hpp>
+#include <HTML_Content.hpp>
 #include <fstream>
 
 using  namespace std; 
@@ -36,25 +37,27 @@ void handle_client(int client_socket) {
 
     // 打印请求内容
     // printf("%s\n", buffer);
-    debug<<buffer<<"\n";
 
     string url=getUrl(buffer);
-    debug<<url<<"\n";
-    html_manager.getFlie(url,buffer);
 
-    debug<<buffer<<"\n";
+    debug<< line <<" 111"<<"\n";
+    string file=html_manager.getFlie(url);
+    debug<< line <<" 111"<<"\n";
+
+    HtmlContent header;
     // 准备响应
-    const char *http_response = "HTTP/1.1 200 OK\r\n"
-                                "Content-Type: text/html\r\n"
-                                "Connection: close\r\n"
-                                "\r\n"
-                                "<html><body><h1>Hello, World!</h1></body><script src=\"script.js\"></script></html>";
+    // const char *http_response = "HTTP/1.1 200 OK\r\n"
+    //                             "Content-Type: text/html\r\n"
+    //                             "Connection: close\r\n"
+    //                             "\r\n"
+    //                             "<html><body><h1>Hello, World!</h1></body><script src=\"script.js\"></script></html>";
 
+    header.makeContent();
+    std::string   http_response=header.Buffer+file;
 
-
-
+    debug<<http_response;
     // 发送响应
-    write(client_socket, http_response, strlen(http_response));
+    write(client_socket, http_response.c_str(), http_response.length());
     
     // 关闭连接
     close(client_socket);
@@ -76,8 +79,9 @@ int read_opt()
     getline(opt_file,PATH);
 
     html_manager.init(PATH);
-
     opt_file.close();
+
+    HtmlContent::init();
     return 0;
 }
 

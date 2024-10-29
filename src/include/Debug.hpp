@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#define line __FILE__<<":"<<__LINE__
+
 class Debug:public std::ostream 
 {
     static bool DebugFlag;    
@@ -13,7 +15,7 @@ class Debug:public std::ostream
     Debug & operator <<(T o)
     {
         if (DebugFlag) {
-            std::cout<<"[ Debug:"<<level <<"]"<<o<<std::endl;
+            std::cout<<o;
         }
         return *this;
     };

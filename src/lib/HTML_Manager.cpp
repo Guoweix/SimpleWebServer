@@ -17,15 +17,18 @@ int htmlManager::loadFile(std::string path) {
   tmp = source + path;
 
   ifile.open(tmp);
+
   debug << tmp << "\n";
-char getstr[1000];
-ifile.getline(getstr,1000);
-  debug << std::string((std::istreambuf_iterator<char>(ifile)),
-                            std::istreambuf_iterator<char>());
+  std::string fileStr;
+  std::string tmpStr;
  
   if (ifile) {
-    map[path] = std::string((std::istreambuf_iterator<char>(ifile)),
-                            std::istreambuf_iterator<char>());
+   while (std::getline(ifile,tmpStr)) {
+      fileStr+= tmpStr;
+   }
+    map[path]=fileStr;
+    
+    debug<<line<<'\n'; 
   } else {
     debug << "can't open the path: " << path << "\n";
     ifile.close();
@@ -35,11 +38,17 @@ ifile.getline(getstr,1000);
   return 0;
 }
 
-int htmlManager::getFlie(std::string url, char *buffer) {
+//返回值为长度
+std::string htmlManager::getFlie(std::string url) {
   auto it = map.find(url);
   if (it == map.end()) {
-    loadFile(url);
+    if(loadFile(url))
+    {
+      return 0;
+    }
+    it = map.find(url);
   }
-  strcpy(buffer, it->second.c_str());
-  return it->second.length();
+
+
+  return it->second;
 }
