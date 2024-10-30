@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>弹出弹窗示例</title>
-    <script src="script.js">
-   </script>
+    <title>实时时钟</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 48px;
+        }
+    </style>
+    <script src="script.js"></script>
 </head>
+
 <body>
-    <h1>欢迎来到我的网页</h1>
-    <button onclick="showAlert()">点击我弹出弹窗</button>
+    <div id="clock"></div>
 </body>
+
 </html>

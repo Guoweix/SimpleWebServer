@@ -31,8 +31,8 @@ int htmlManager::loadFile(std::string path) {
   std::string fileStr(fileSize, '\0');
 
   ifile.read(&fileStr[0], fileSize);
-  debug << "path " << tmp << " file size " << fileSize << " content " << fileStr
-        << "\n";
+  // debug << "path " << tmp << " file size " << fileSize << " content " << fileStr
+        // << "\n";
   map[path] = fileStr;
   ifile.close();
   return 0;
@@ -48,6 +48,6 @@ std::string htmlManager::getFlie(std::string url) {
     }
     it = map.find(url);
   }
-  debug << line << " getFile return " << it->second << "\n";
+  // debug << line << " getFile return " << it->second << "\n";
   return it->second;
 }
