@@ -9,10 +9,10 @@
 # run:build/main.o build/lib/Debug.o
 # 	clang++ build/main.o build/lib/Debug.o -o my_program
 # 	cd build && sudo ./main.o	
+SRC_DIR := src
 CPP_FILES := $(shell find $(SRC_DIR) -name "*.cpp")
 OBJ_FILES := $(patsubst %.cpp,%.obj,$(CPP_FILES))
-SRC_DIR := src
-FLAGS := -c -Isrc/include -DDEBUG
+FLAGS := -c -Isrc/include -DDEBUG -g
 CC := clang++
 
 build/SimpleWebServer:$(OBJ_FILES)

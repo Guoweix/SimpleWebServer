@@ -32,17 +32,13 @@ string getUrl(char * buffer)
 }
 
 void handle_client(int client_socket) {
+    debug<< line <<"\n";
     char buffer[BUFFER_SIZE];
     read(client_socket, buffer, sizeof(buffer) - 1);
 
-    // 打印请求内容
-    // printf("%s\n", buffer);
-
     string url=getUrl(buffer);
 
-    debug<< line <<" 111"<<"\n";
     string file=html_manager.getFlie(url);
-    debug<< line <<" 111"<<"\n";
 
     HtmlContent header;
     // 准备响应
@@ -52,10 +48,17 @@ void handle_client(int client_socket) {
     //                             "\r\n"
     //                             "<html><body><h1>Hello, World!</h1></body><script src=\"script.js\"></script></html>";
 
-    header.makeContent();
-    std::string   http_response=header.Buffer+file;
+    std::string  http_response;
 
-    debug<<http_response;
+    if (!file.empty()) {
+        header.makeContent(HtmlContent::StatusCode::OK);
+        http_response=header.Buffer+file;
+    }
+    else {
+        header.makeContent(HtmlContent::StatusCode::NotFound);
+        http_response=header.Buffer;
+    }
+    
     // 发送响应
     write(client_socket, http_response.c_str(), http_response.length());
     
@@ -77,11 +80,11 @@ int read_opt()
     PORT= stoi(tmp);
 
     getline(opt_file,PATH);
-
     html_manager.init(PATH);
-    opt_file.close();
 
     HtmlContent::init();
+
+    opt_file.close();
     return 0;
 }
 
@@ -114,7 +117,6 @@ int init_socket(int & server_socket, sockaddr_in & server_addr)
     }
 
     return 0;
-
 }
 
 

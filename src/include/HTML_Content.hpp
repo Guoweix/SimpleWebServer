@@ -5,6 +5,7 @@
 
 class HtmlContent {
 
+public:
   enum StatusCode : int {
     Continue = 100,
     OK = 200,
@@ -12,6 +13,7 @@ class HtmlContent {
     NotFound = 404,
   };
 
+private:
   static const char
       *StatusCodeStr[120]; 
 
@@ -24,7 +26,7 @@ class HtmlContent {
 
 public:
   std::string Buffer;
-  int makeContent();
+  int makeContent(StatusCode _Status=OK);
   static int init();
 };
 
