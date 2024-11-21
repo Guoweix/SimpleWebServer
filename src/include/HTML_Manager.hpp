@@ -3,17 +3,22 @@
 
 #include <string>
 #include <unordered_map>
-#include <iostream>
+#include <filesystem>
+
 
 class htmlManager
 {
-    std::string source;
+    std::filesystem::path source;
     std::unordered_map<std::string, std::string> map;
 
-    int loadFile(std::string path);
+    std::string loadResponse(std::string path);
+    bool isFileInDirectory(std::filesystem::path,std::filesystem::path);
+
     public:
     int init(std::string tar);
-    std::string getFlie(std::string url);
+    std::string getResponse(std::string url);
+
+
 };
 
 extern htmlManager html_manager;

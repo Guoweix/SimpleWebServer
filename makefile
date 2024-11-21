@@ -12,7 +12,7 @@
 SRC_DIR := src
 CPP_FILES := $(shell find $(SRC_DIR) -name "*.cpp")
 OBJ_FILES := $(patsubst %.cpp,%.obj,$(CPP_FILES))
-FLAGS := -c -Isrc/include -DDEBUG -g
+FLAGS := -c -Isrc/include -DDEBUG -g -std=c++17
 CC := clang++
 
 build/SimpleWebServer:$(OBJ_FILES)

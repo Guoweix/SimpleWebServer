@@ -36,9 +36,11 @@ void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
     read(client_socket, buffer, sizeof(buffer) - 1);
 
+    debug<<"get BUFFER"<<buffer<<"\n";
+
     string url=getUrl(buffer);
 
-    string file=html_manager.getFlie(url);
+    string file=html_manager.getResponse(url);
 
     HtmlContent header;
     // 准备响应
